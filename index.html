@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>NFC Card Label Designer</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>NFC Card Label Designer</h1>
+      <div class="header-actions">
+        <button id="add-images" class="button secondary" type="button">Add card</button>
+        <button id="open-print" class="button primary" type="button" disabled>Print PDF</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="empty-state" class="empty-state">
+        <div class="empty-icon">+</div>
+        <h2>Add your label artwork</h2>
+        <p>Drop images here, paste from the clipboard, or choose files.</p>
+        <p class="fine-print">JPEG, PNG, or WebP. Your files never leave this computer.</p>
+      </section>
+      <section id="card-grid" class="card-grid"></section>
+      <div class="drop-overlay">Drop images to add labels</div>
+    </main>
+
+    <input id="file-input" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden>
+    <div id="status" class="status"></div>
+
+    <dialog id="editor-dialog" class="dialog editor-dialog">
+      <form method="dialog" class="dialog-shell">
+        <div class="editor-body">
+          <div id="editor-stage" class="editor-stage"></div>
+          <aside class="editor-controls">
+            <label>
+              <span>Zoom</span>
+              <input id="editor-zoom" type="range" min="1" max="10" value="1" step="0.01">
+            </label>
+            <label>
+              <span>Placement margin</span>
+              <span class="number-with-unit">
+                <input id="editor-margin" type="number" min="0" max="24" value="1" step="0.1" inputmode="decimal">
+                <span>mm</span>
+              </span>
+              <small class="field-help dimension-summary">
+                <span>Card: 85 × 54 mm</span>
+                <span id="editor-margin-output">Label: 83 × 52 mm</span>
+              </small>
+            </label>
+            <p class="hint">Drag to reposition the artwork. Use the slider for precise zoom or the scroll wheel over the label for quick zoom. Placement margin leaves the entered clearance on every edge; artwork is cropped to cover without stretching.</p>
+            <button id="editor-reset" class="button secondary" type="button">Reset</button>
+            <div class="editor-side-actions">
+              <button class="button secondary" value="cancel" type="submit">Cancel</button>
+              <button id="editor-save" class="button primary" value="default" type="button">Save</button>
+            </div>
+          </aside>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="print-dialog" class="dialog print-dialog">
+      <form method="dialog" class="dialog-shell">
+        <header class="dialog-header">
+          <div>
+            <p class="eyebrow">US Letter · 8.5 × 11 in</p>
+            <h2>Print labels</h2>
+          </div>
+          <button class="icon-button" value="cancel" type="submit">×</button>
+        </header>
+        <div class="print-summary">
+          <p id="print-count"></p>
+          <p>Nine standard 85 × 54 mm NFC labels fit on each page.</p>
+          <label class="check-row"><input id="crop-marks" type="checkbox" checked> Crop marks</label>
+          <label class="check-row"><input id="outlines" type="checkbox"> Label outlines</label>
+        </div>
+        <footer class="dialog-actions">
+          <button class="button secondary" value="cancel" type="submit">Cancel</button>
+          <button id="download-pdf" class="button primary" value="default" type="button">Download PDF</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <script src="core.js" defer></script>
+    <script src="pdf.js" defer></script>
+    <script src="app.js" defer></script>
+  </body>
+</html>

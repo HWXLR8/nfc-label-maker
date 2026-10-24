@@ -4,7 +4,7 @@ A dependency-free, local label designer for standard 85 × 54 mm NFC cards.
 
 ## Run
 
-Open `index.html` in a web browser. No server, internet connection, installation, package manager, or build step is required. The application supports local JPEG, PNG, and WebP artwork. Work exists only in memory and is cleared when the page reloads.
+Open `index.html` in a web browser. The application supports local JPEG, PNG, and WebP artwork. Work exists only in memory and is cleared when the page reloads.
 
 ## Workflow
 
